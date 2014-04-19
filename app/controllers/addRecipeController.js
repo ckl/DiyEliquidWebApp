@@ -80,7 +80,7 @@
 
         // TODO: move $http.post call to recipeService
         var data = JSON.stringify({ 'name': $scope.recipeName, 'description': $scope.recipeDescription, 'ingredients': params });
-        $http.post("/FlavorBrand/AddRecipe/", data).
+        $http.post("/Flavor/AddRecipe/", data).
             success(function(results, status, headers, config) {
                 alert("successfully added recipe");
                 $scope.buttonDisabled = false;

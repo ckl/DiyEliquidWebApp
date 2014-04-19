@@ -126,7 +126,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Default1Controller.cs" />
-    <Compile Include="Controllers\FlavorBrandController.cs" />
+    <Compile Include="Controllers\FlavorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,24 +200,10 @@
   <ItemGroup>
     <Folder Include="app\directives\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FlavorBrand\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FlavorBrand\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FlavorBrand\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FlavorBrand\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FlavorBrand\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\fonts\glyphicons-halflings-regular.eot" />

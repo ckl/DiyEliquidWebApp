@@ -48,7 +48,7 @@
         }
 
         var data = JSON.stringify({ 'flavors': params, 'numMissingFlavors': $scope.numMissingFlavors });
-        $http.post("/FlavorBrand/SearchRecipeByIngredient/", data).success(function (results) {
+        $http.post("/Flavor/SearchRecipeByIngredient/", data).success(function (results) {
 
             if (results == null)
                 $scope.recipes = "No results found";

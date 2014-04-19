@@ -11,8 +11,9 @@
             return;
         }
 
+        // TODO: move http.post into recipeService
         var params = { flavorName: $scope.flavorName, notes: $scope.flavorNotes };
-        $http.post("/FlavorBrand/AddFlavor", params).
+        $http.post("/Flavor/AddFlavor", params).
             success(function(data, status, headers, config) {
                 $scope.flavors.push(data);
                 

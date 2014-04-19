@@ -11,7 +11,7 @@ using EntityFramework.Extensions;
 
 namespace DiyELiquidWeb.Controllers
 {
-    public class FlavorBrandController : Controller
+    public class FlavorController : Controller
     {
         private DiyELiquidContext db = new DiyELiquidContext();
 
@@ -287,103 +287,103 @@ namespace DiyELiquidWeb.Controllers
         //
         // GET: /FlavorBrand/
 
-        public ActionResult Index()
-        {
-            return View(db.FlavorBrands.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    return View(db.FlavorBrands.ToList());
+        //}
 
-        //
-        // GET: /FlavorBrand/Details/5
+        ////
+        //// GET: /FlavorBrand/Details/5
 
-        public ActionResult Details(int id = 0)
-        {
-            FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-            if (flavorbrand == null)
-            {
-                return HttpNotFound();
-            }
-            return View(flavorbrand);
-        }
+        //public ActionResult Details(int id = 0)
+        //{
+        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
+        //    if (flavorbrand == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(flavorbrand);
+        //}
 
-        //
-        // GET: /FlavorBrand/Create
+        ////
+        //// GET: /FlavorBrand/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        //
-        // POST: /FlavorBrand/Create
+        ////
+        //// POST: /FlavorBrand/Create
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(FlavorBrand flavorbrand)
-        {
-            if (ModelState.IsValid)
-            {
-                db.FlavorBrands.Add(flavorbrand);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(FlavorBrand flavorbrand)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.FlavorBrands.Add(flavorbrand);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(flavorbrand);
-        }
+        //    return View(flavorbrand);
+        //}
 
-        //
-        // GET: /FlavorBrand/Edit/5
+        ////
+        //// GET: /FlavorBrand/Edit/5
 
-        public ActionResult Edit(int id = 0)
-        {
-            FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-            if (flavorbrand == null)
-            {
-                return HttpNotFound();
-            }
-            return View(flavorbrand);
-        }
+        //public ActionResult Edit(int id = 0)
+        //{
+        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
+        //    if (flavorbrand == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(flavorbrand);
+        //}
 
-        //
-        // POST: /FlavorBrand/Edit/5
+        ////
+        //// POST: /FlavorBrand/Edit/5
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(FlavorBrand flavorbrand)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(flavorbrand).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(flavorbrand);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(FlavorBrand flavorbrand)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(flavorbrand).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(flavorbrand);
+        //}
 
-        //
-        // GET: /FlavorBrand/Delete/5
+        ////
+        //// GET: /FlavorBrand/Delete/5
 
-        public ActionResult Delete(int id = 0)
-        {
-            FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-            if (flavorbrand == null)
-            {
-                return HttpNotFound();
-            }
-            return View(flavorbrand);
-        }
+        //public ActionResult Delete(int id = 0)
+        //{
+        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
+        //    if (flavorbrand == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(flavorbrand);
+        //}
 
-        //
-        // POST: /FlavorBrand/Delete/5
+        ////
+        //// POST: /FlavorBrand/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-            db.FlavorBrands.Remove(flavorbrand);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
+        //    db.FlavorBrands.Remove(flavorbrand);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

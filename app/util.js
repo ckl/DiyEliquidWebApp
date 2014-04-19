@@ -2,7 +2,7 @@
 
     // Get list of recipe ingredients
     var params = { recipeId: recipe.Id };
-    $http.post("/FlavorBrand/GetIngredients", params).success(function(data) {
+    $http.post("/Flavor/GetIngredients", params).success(function(data) {
 
         var ingredients = data;
 
