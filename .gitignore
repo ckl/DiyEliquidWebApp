@@ -1,0 +1,7 @@
+*.dll
+Web.config
+Web.*.config
+obj/*
+bin/*
+*.dll
+Properties/*

@@ -1,0 +1,20 @@
+﻿<div class="modal-header">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4>{{recipeObject.Name}}</h4>
+</div>
+
+<div class="modal-body">
+    <div style="margin-left:20px;">
+        <div class="row">
+            <li ng-repeat="ingredient in recipeIngredients">
+                <span> {{ingredient.AmountPercent}}% - {{ ingredient.Flavor.Name}} ({{ingredient.Flavor.FlavorBrand.ShortName}}) </span>
+            </li>
+        </div>
+
+        <div>
+            <h4>Description:</h4>
+            
+            {{recipeObject.Description}}
+        </div>
+    </div>
+</div>

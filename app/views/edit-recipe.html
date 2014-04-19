@@ -1,0 +1,41 @@
+﻿<div>
+    
+    <h3>Edit Recipe</h3>
+    <div>
+        <form class="form-horizontal">
+            <div class="form-group">
+
+                <div class="col-md-5 col-xs-4 col-sm-5">
+                    <input type="text" ng-model="recipe.name" class="form-control" placeholder="Recipe Name" />
+                </div>
+
+                
+            </div>
+    
+            <div>
+                <!--<input type="text" ng-model="recipe.Description" class="form-control" placeholder="Description" />-->
+                <textarea style="width: 450px; height: 100px;" ng-model="recipe.description" class="form-control" placeholder="Description" maxlength="500"></textarea>
+            </div>
+
+            <div>
+                <h4>Flavors <small><a href="" ng-click="addNewFlavor()">(add new flavor)</a></small></h4>
+                <div ng-repeat="op in ingredients.m">
+                    <select ng-model="op.flavorId" ng-options="o.Id as o.Name for o in flavors | orderBy: 'Name'" data-init="op.id"></select>
+                    
+                    <input type="text" ng-model="op.amount" maxlength="2" style="width: 25px;" />%
+                    <a ng-click="remove(op)">Remove</a>
+                </div>
+                
+                <div style="margin-top: 5px;">
+                    <button ng-click="add()" >Add Flavor</button>
+                </div>
+                
+                <div class="form-horizontal" style="margin-top: 20px;">
+                    <button><a href="#/" class="btn">Cancel</a></button>
+                    <button class="btn btn-primary" data-ng-click="updateRecipe()" ng-disabled="buttonDisabled">Update Recipe</button>
+                    <button class="btn btn-danger" ng-click="deleteRecipe()">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

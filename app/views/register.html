@@ -1,0 +1,28 @@
+﻿<div class="modal-header">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4>Register</h4>
+</div>
+
+<div class="modal-body">
+    <div>
+        <span>
+            Username: <input type="text" ng-model="$parent.username" class="form-control" placeholder="Username" style="width:200px;" />
+        </span>
+        
+        <span>
+            Password: <input type="password" ng-model="$parent.password" class="form-control" placeholder="Password" style="width: 300px;" />
+        </span>
+        
+        <span>
+            Confirm Password: <input type="password" ng-model="$parent.passwordConfirm" class="form-control" placeholder="Confirm Password" style="width: 300px;" />
+        </span>
+
+        <span>
+            Email: <input type="text" ng-model="$parent.email" class="form-control" placeholder="Email" style="width: 300px;" />
+        </span>
+    </div>
+    
+    <div style="margin-top: 10px;">
+        <button class="btn btn-primary" data-ng-click="register()" ng-disabled="$parent.buttonDisabled">Register</button>
+    </div>
+</div>

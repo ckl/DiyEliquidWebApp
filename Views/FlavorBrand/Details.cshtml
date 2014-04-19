@@ -1,0 +1,29 @@
+﻿@model DiyELiquidWeb.Models.FlavorBrand
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>FlavorBrand</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Website)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Website)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ShortName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ShortName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

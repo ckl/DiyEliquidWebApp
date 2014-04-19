@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html ng-app="DiyEliquidApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>DIY E-Liquid Database</title>
+    <link href="content/css/site.css" rel="stylesheet" />
+    <link href="content/css/bootstrap.css" rel="stylesheet" />
+    <link href="content/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="Content/css/toaster.css" rel="stylesheet" />
+    <link href="content/css/loading-bar.min.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!--<link href="favicon.ico" rel="shortcut icon" />-->
+
+    <!-- 3rd party libraries -->
+    <script type="text/javascript" src="Scripts/angular.js"></script>
+    <script type="text/javascript" src="Scripts/angular-cookies.js"></script>
+    <script type="text/javascript" src="Scripts/angular-route.js"></script>
+    <script type="text/javascript" src="Scripts/angular-resource.js"></script>
+    <script type="text/javascript" src="Scripts/angular-animate.js"></script>
+    <script type="text/javascript" src="Scripts/angular-sanitize.js"></script>
+    <script type="text/javascript" src="Scripts/loading-bar.min.js"></script>
+    <script type="text/javascript" src="Scripts/toaster.js"></script>
+    <script type="text/javascript" src="Scripts/ui-bootstrap-tpls-0.10.0.min.js"></script>
+    <script type="text/javascript" src="Scripts/dialogs.js"></script>
+
+    <!-- Load app main script -->
+    <script type="text/javascript" src="app/app.js"></script>
+
+    <!--Load controllers-->
+    <script type="text/javascript" src="app/controllers/searchRecipesByNameController.js"></script>
+    <script type="text/javascript" src="app/controllers/searchRecipesByIngredientController.js"></script>
+    <script type="text/javascript" src="app/controllers/viewRecipeController.js"></script>
+    <script type="text/javascript" src="app/controllers/addRecipeController.js"></script>
+    <script type="text/javascript" src="app/controllers/editRecipeController.js"></script>
+    <script type="text/javascript" src="app/controllers/addFlavorController.js"></script>
+    <script type="text/javascript" src="app/controllers/navItemController.js"></script>
+
+    <script type="text/javascript" src="app/controllers/loginController.js"></script>
+    <script type="text/javascript" src="app/controllers/registerController.js"></script>
+
+    <!-- Load Services -->
+    <script type="text/javascript" src="app/services/modalService.js"></script>
+    <script type="text/javascript" src="app/services/recipeService.js"></script>
+    <script type="text/javascript" src="app/services/authFactory.js"></script>
+
+    <!-- Load Filters -->
+    <script type="text/javascript" src="app/filters/recipeNameFilter.js"></script>
+</head>
+<body>
+    <div id="page" ng-controller="indexController">
+        <!--<div ng-if="isMobileLayout() == true">
+            
+        </div>-->
+
+        <div>
+            <header class="container">
+                <div class="navbar navbar-default" id="menu" ng-controller="navItemController">
+                    <div class="navbar-header">
+                        <button class="btn btn-success navbar-toggle"></button>
+                        <div id="logo" style="margin-left: 25px;">
+                            <h4>DIY E-Liquid Database</h4>
+                        </div>
+                    </div>
+
+                    <div class="navbar-collapse collapse">
+
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#/recipes">Recipes</a></li>
+                            <li ng-if="isAdmin() == true"><a href="#/add-recipe">Add Recipe</a></li>
+                            <li ng-if="isLoggedIn() == false"><a href="" ng-click="login()">Login</a></li>
+                            <li ng-if="isLoggedIn() == false"><a href="" ng-click="register()">Register</a></li>
+                            <li><a href="#/about">About</a></li>
+                            <li ng-if="isLoggedIn() == true"><a href="#/manage-flavors">My Flavors</a></li>
+                            <li ng-if="isLoggedIn() == true"><a href="" ng-click="logout()">(<b><u>Logout</u></b>)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <section class="container" id="body">
+                <div data-ng-view=""></div>
+            </section>
+
+            <hr />
+
+            <footer class="container">
+                Created by ckl. 
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

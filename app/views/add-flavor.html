@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4>Add a new flavor</h4>
+</div>
+
+<div class="modal-body">
+    <div class="form-group form-horizontal">
+        <span>
+            Flavor Name: <input type="text" ng-model="$parent.flavorName" class="form-control" placeholder="Flavor Name" style="width:200px;" />
+        </span>
+        
+        <span>
+            Description: <input type="text" ng-model="$parent.flavorNotes" class="form-control" placeholder="Notes" style="width: 300px;" />
+        </span>
+
+        
+    </div>
+    
+    <div style="margin-top: 10px;">
+        <button class="btn btn-primary" data-ng-click="addFlavor()" ng-disabled="$parent.buttonDisabled">Add Flavor</button>
+    </div>
+</div>

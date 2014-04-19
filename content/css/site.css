@@ -1,0 +1,15 @@
+﻿
+table.table-recipes > td {
+    padding: 2em;
+}
+
+td.recipe-description {
+    margin-left: 10px;
+    max-width: 800px;
+    max-height: 150px;
+    overflow: hidden;
+}
+
+td.admin-buttons {
+    
+}
