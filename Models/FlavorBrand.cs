@@ -52,6 +52,20 @@ namespace DiyELiquidWeb.Models
         public int FlavorId { get; set; }
     }
 
+    [Table("Users_Flavors")]
+    public class Users_Flavors
+    {
+        public int Id { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual Users User { get; set; }
+        public int UserId { get; set; }
+
+        [ForeignKey("FlavorId")]
+        public virtual Flavor Flavor { get; set; }
+        public int FlavorId { get; set; }
+    }
+
     public class DiyELiquidContext : DbContext
     {
         public DiyELiquidContext() : base("DiyELiquidDbConnection")
@@ -62,6 +76,7 @@ namespace DiyELiquidWeb.Models
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Flavor> Flavors { get; set; }
         public DbSet<Recipe_Flavor> Recipe_Flavor { get; set; }
+        public DbSet<Users_Flavors> Users_Flavors { get; set; }
 
         public DbSet<Users> Users { get; set; }
     }

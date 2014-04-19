@@ -75,7 +75,7 @@
                             <li ng-if="isLoggedIn() == false"><a href="" ng-click="register()">Register</a></li>
                             <li><a href="#/about">About</a></li>
                             <li ng-if="isLoggedIn() == true"><a href="#/manage-flavors">My Flavors</a></li>
-                            <li ng-if="isLoggedIn() == true"><a href="" ng-click="logout()">(<b><u>Logout</u></b>)</a></li>
+                            <li ng-if="isLoggedIn() == true"><a href="" ng-click="logout()">(<b><u>Logout {{ user.username }}</u></b>)</a></li>
                         </ul>
                     </div>
                 </div>

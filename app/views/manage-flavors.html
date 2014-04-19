@@ -1,6 +1,11 @@
 ﻿<div class="view-body">
     <h3>Manage Flavors</h3>
     <div>
+        
+        <div class="form-horizontal" style="margin-top: 20px;">
+            <button class="btn btn-primary" data-ng-click="updateFlavors()" ng-disabled="buttonDisabled">Update Flavors</button>
+        </div>
+
         <table class="table-responsive table-recipes table-hover table-striped table-bordered table-condensed">
             <thead>
                 <tr>
@@ -11,10 +16,15 @@
             <tbody>
                 <tr ng-repeat="arr in flavorsTransposed.values">
                     <td ng-repeat="item in arr" ng-class="{ owned: item.IsOwned == true }" >
-                        <input type="checkbox" value="{{item.Id}}" ng-checked="item.IsOwned" />  {{ item.Name }}
+                        <input type="checkbox" value="{{item.Id}}" ng-checked="item.IsOwned" ng-click="toggleCheckbox(item)" />  {{ item.Name }}
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <div class="form-horizontal" style="margin-top: 20px;">
+            <button class="btn btn-primary" data-ng-click="updateFlavors()" ng-disabled="buttonDisabled">Update Flavors</button>
+        </div>
+
     </div>
 </div>

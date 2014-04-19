@@ -13,6 +13,10 @@
     return results;
 });
 
+app.value("arrayContains", function(array, value) {
+    return (array.indexOf(value) != -1);
+});
+
 // TODO: convert this to app.value()
 function ShowRecipeModalDialog(recipe) {
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DiyELiquidWeb.Models;
 using EntityFramework.Extensions;
 
@@ -105,6 +106,17 @@ namespace DiyELiquidWeb.Controllers
             return Json(matchingRecipes);
         }
 
+        // TODO: move to helper
+        public class MembershipHelper
+        {
+            public static int? GetUserId()
+            {
+                if (Membership.GetUser() != null)
+                    return Membership.GetUser().ProviderUserKey as int?;
+                return null;
+            }
+        }
+
         //
         // POST: /GetAllFlavors
         [HttpPost]
@@ -124,7 +136,17 @@ namespace DiyELiquidWeb.Controllers
                                    where fl.FlavorBrandId == fb.Id
                                    select new MyFlavorJson {Id = fl.Id, Name = fl.Name }).OrderBy(x => x.Name).ToList();
 
-                    // TODO: Need to get whether or not the flavor is owned
+                    // Get all owned flavors
+                    var userId = MembershipHelper.GetUserId();
+                    var owned = (from uf in db.Users_Flavors
+                                 where uf.UserId == userId
+                                 select uf.FlavorId).ToList<int>();
+
+                    foreach (var f in flavors)
+                    {
+                        if (owned.Contains(f.Id))
+                            f.IsOwned = true;
+                    }
 
                     results.Add(new FlavorBrand {Id = fb.Id, Name = fb.Name, Website = fb.Website}, flavors);
                 }
@@ -137,6 +159,47 @@ namespace DiyELiquidWeb.Controllers
 
 
             return Json(results.ToDictionary(k => k.Key.Name, v => v.Value));
+        }
+
+        //
+        // POST: /UpdateUserFlavor/List<int>add, List<int> remove
+        [HttpPost]
+        [Authorize(Roles = "User")]
+        public ActionResult UpdateUserFlavor(List<int> addList, List<int> remList)
+        {
+            // First get their UserId
+            var userId = MembershipHelper.GetUserId();
+
+            if (userId == null)
+            {
+                Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                return Json("Error: You must be logged in to perform this action");
+            }
+
+            // Remove flavors
+            if (remList != null && remList.Count > 0)
+            {
+                db.Users_Flavors.Delete(uf => uf.UserId == userId && remList.Contains(uf.FlavorId));
+            }
+
+            // Add new flavors
+            if (addList != null && addList.Count > 0)
+            {
+                foreach (var id in addList)
+                {
+                    var entry = new Users_Flavors
+                        {
+                            FlavorId = id,
+                            UserId = Convert.ToInt32(userId)
+                        };
+
+                    db.Users_Flavors.Add(entry);
+                }
+
+                db.SaveChanges();
+            }
+
+            return Json(null);
         }
 
         //

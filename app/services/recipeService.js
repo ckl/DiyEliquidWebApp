@@ -51,6 +51,14 @@
         }
     };
 
+    this.updateFlavors = function(addList, remList, success, error) {
+        $http.post("/Flavor/UpdateUserFlavor", { addList: addList, remList: remList }).success(function(data, status, headers, config) {
+            success(data);
+        }).error(function (data, status) {
+            error(data);
+        });
+    };
+
     this.getAllFlavorBrands = function(success, error) {
         if (flavorBrands.length == 0) {
             $http.post("/Flavor/GetAll").success(function (data, status, headers, config) {
