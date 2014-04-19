@@ -106,9 +106,31 @@ namespace DiyELiquidWeb.Controllers
         }
 
         //
-        // POST: /GetAllFlavors/
+        // POST: /GetAllFlavors
+        public ActionResult GetAllFlavors()
+        {
+            var results = new Dictionary<FlavorBrand, List<FlavorJson>>();
+
+            // TODO: probably a better way to do this in linq
+            var flavorBrands = (from fb in db.FlavorBrands
+                                select fb).ToList();
+
+            foreach (var fb in flavorBrands)
+            {
+                var flavors = (from fl in db.Flavors
+                               where fl.FlavorBrandId == fb.Id
+                               select new FlavorJson { Id = fl.Id, Name = fl.Name }).ToList();
+
+                results.Add(new FlavorBrand { Id = fb.Id, Name = fb.Name, Website = fb.Website }, flavors);
+            }
+
+            return Json(results);
+        }
+
+        //
+        // POST: /GetAllFlavorsByBrand/
         [HttpPost]
-        public ActionResult GetAllFlavors(int flavorBrandId=1)
+        public ActionResult GetAllFlavorsByBrand(int flavorBrandId=1)
         {
             var response = (from f in db.Flavors
                             where f.FlavorBrandId == flavorBrandId
@@ -124,7 +146,6 @@ namespace DiyELiquidWeb.Controllers
         public ActionResult AddFlavor(string flavorName, string notes, int flavorBrandId=1)
         {
             // First see if the flavor name already exists
-            // TODO: this returns html, find out how to return just a god damn simple string message
             try
             {
                 var flavor = (from fl in db.Flavors
@@ -283,107 +304,6 @@ namespace DiyELiquidWeb.Controllers
 
             return Json(response);
         }
-
-        //
-        // GET: /FlavorBrand/
-
-        //public ActionResult Index()
-        //{
-        //    return View(db.FlavorBrands.ToList());
-        //}
-
-        ////
-        //// GET: /FlavorBrand/Details/5
-
-        //public ActionResult Details(int id = 0)
-        //{
-        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-        //    if (flavorbrand == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(flavorbrand);
-        //}
-
-        ////
-        //// GET: /FlavorBrand/Create
-
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        ////
-        //// POST: /FlavorBrand/Create
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(FlavorBrand flavorbrand)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.FlavorBrands.Add(flavorbrand);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(flavorbrand);
-        //}
-
-        ////
-        //// GET: /FlavorBrand/Edit/5
-
-        //public ActionResult Edit(int id = 0)
-        //{
-        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-        //    if (flavorbrand == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(flavorbrand);
-        //}
-
-        ////
-        //// POST: /FlavorBrand/Edit/5
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(FlavorBrand flavorbrand)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(flavorbrand).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(flavorbrand);
-        //}
-
-        ////
-        //// GET: /FlavorBrand/Delete/5
-
-        //public ActionResult Delete(int id = 0)
-        //{
-        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-        //    if (flavorbrand == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(flavorbrand);
-        //}
-
-        ////
-        //// POST: /FlavorBrand/Delete/5
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    FlavorBrand flavorbrand = db.FlavorBrands.Find(id);
-        //    db.FlavorBrands.Remove(flavorbrand);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

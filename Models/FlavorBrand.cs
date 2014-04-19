@@ -81,4 +81,10 @@ namespace DiyELiquidWeb.Models
         public string Description { get; set; }
         public List<Ingredient> Ingredients { get; set; }
     }
+
+    public class FlavorJson
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

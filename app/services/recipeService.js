@@ -24,9 +24,9 @@
         getAllRecipes(success, error);
     };
 
-    this.getAllFlavors = function(flavorBrandId, success, error) {
+    this.GetAllFlavorsByBrand = function(flavorBrandId, success, error) {
         if (currentFlavorBrand != flavorBrandId || flavors.length == 0) {
-            $http.post("/Flavor/GetAllFlavors", { flavorBrandId: flavorBrandId }).success(function (data, status, headers, config) {
+            $http.post("/Flavor/GetAllFlavorsByBrand", { flavorBrandId: flavorBrandId }).success(function (data, status, headers, config) {
                 flavors = data;
                 currentFlavorBrand = flavorBrandId;
                 success(data);

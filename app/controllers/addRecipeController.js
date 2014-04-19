@@ -5,7 +5,7 @@
     
     function init() {
 
-        recipeService.getAllFlavors(1, function(data) {
+        recipeService.GetAllFlavorsByBrand(1, function(data) {
             // success callback
             $scope.flavors = data;
         }, function(data) {

@@ -16,6 +16,11 @@ app.config(function($routeProvider) {
         templateUrl: "/app/views/edit-recipe.html"
     });
 
+    $routeProvider.when("/manage-flavors", {
+        controller: "manageFlavorsController",
+        templateUrl: "/app/views/manage-flavors.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/recipes" });
 });
 

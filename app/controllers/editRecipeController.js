@@ -35,7 +35,7 @@
         });
 
         // TODO: move $http.post into recipeService
-        $http.post("/Flavor/GetAllFlavors").success(function (data) {
+        $http.post("/Flavor/GetAllFlavorsByBrand").success(function (data) {
             $scope.flavors = data;
         });
     }

@@ -143,6 +143,7 @@
     <Content Include="app\controllers\addRecipeController.js" />
     <Content Include="app\controllers\editRecipeController.js" />
     <Content Include="app\controllers\loginController.js" />
+    <Content Include="app\controllers\manageFlavorsController.js" />
     <Content Include="app\controllers\navItemController.js" />
     <Content Include="app\controllers\registerController.js" />
     <Content Include="app\controllers\searchRecipesByIngredientController.js" />
@@ -157,6 +158,7 @@
     <Content Include="app\views\add-recipe.html" />
     <Content Include="app\views\edit-recipe.html" />
     <Content Include="app\views\login.html" />
+    <Content Include="app\views\manage-flavors.html" />
     <Content Include="app\views\recipes.html" />
     <Content Include="app\views\register.html" />
     <Content Include="app\views\viewRecipe.html" />
