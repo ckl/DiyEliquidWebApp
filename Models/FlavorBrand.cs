@@ -82,9 +82,10 @@ namespace DiyELiquidWeb.Models
         public List<Ingredient> Ingredients { get; set; }
     }
 
-    public class FlavorJson
+    public class MyFlavorJson
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsOwned { get; set; }
     }
 }

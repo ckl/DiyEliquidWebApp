@@ -4,6 +4,7 @@
     var recipeList = [];
     var flavorBrands = [];
     var recipeFlavors = {};
+    var allFlavorsDict = {};
     var currentFlavorBrand = 1;
 
     this.getAllRecipes = function(success, error) {
@@ -22,6 +23,17 @@
     this.refreshRecipes = function(success, error) {
         recipeList = [];
         getAllRecipes(success, error);
+    };
+
+    this.getAllFlavors = function(success, error) {
+        if (allFlavorsDict.length == undefined || allFlavorsDict.length == 0) {
+            $http.post("/Flavor/GetAllFlavors").success(function(data, status, headers, config) {
+                allFlavorsDict = data;
+                success(data);
+            }).error(function(data, status) {
+                error(data);
+            });
+        }
     };
 
     this.GetAllFlavorsByBrand = function(flavorBrandId, success, error) {

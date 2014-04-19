@@ -1,15 +1,19 @@
 ﻿<div>
     <h3>Manage Flavors</h3>
     <div>
-        <table class="table-responsive">
+        <table class="table-responsive table-recipes table-hover table-striped table-bordered">
             <thead>
                 <tr>
-                    <th ng-repeat="flavorBrand in flavorBrands | orderBy 'Id'">{{ flavorBrand.Name }}</th>
+                    <th ng-repeat="brand in flavorsTransposed.headers">{{ brand }}</th>
                 </tr>
             </thead>
             
             <tbody>
-                <tr ></tr>
+                <tr ng-repeat="arr in flavorsTransposed.values">
+                    <td ng-repeat="item in arr">
+                        <input type="checkbox" value="{{item.Id}}" />  {{ item.Name }}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

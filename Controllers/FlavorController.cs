@@ -107,24 +107,36 @@ namespace DiyELiquidWeb.Controllers
 
         //
         // POST: /GetAllFlavors
+        [HttpPost]
         public ActionResult GetAllFlavors()
         {
-            var results = new Dictionary<FlavorBrand, List<FlavorJson>>();
+            var results = new Dictionary<FlavorBrand, List<MyFlavorJson>>();
 
-            // TODO: probably a better way to do this in linq
-            var flavorBrands = (from fb in db.FlavorBrands
-                                select fb).ToList();
-
-            foreach (var fb in flavorBrands)
+            try
             {
-                var flavors = (from fl in db.Flavors
-                               where fl.FlavorBrandId == fb.Id
-                               select new FlavorJson { Id = fl.Id, Name = fl.Name }).ToList();
+                // TODO: probably a better way to do this in linq
+                var flavorBrands = (from fb in db.FlavorBrands
+                                    select fb).ToList();
 
-                results.Add(new FlavorBrand { Id = fb.Id, Name = fb.Name, Website = fb.Website }, flavors);
+                foreach (var fb in flavorBrands)
+                {
+                    var flavors = (from fl in db.Flavors
+                                   where fl.FlavorBrandId == fb.Id
+                                   select new MyFlavorJson {Id = fl.Id, Name = fl.Name}).OrderBy(x => x.Name).ToList();
+
+                    // TODO: Need to get whether or not the flavor is owned
+
+                    results.Add(new FlavorBrand {Id = fb.Id, Name = fb.Name, Website = fb.Website}, flavors);
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                return Json(ex.Message);
             }
 
-            return Json(results);
+
+            return Json(results.ToDictionary(k => k.Key.Name, v => v.Value));
         }
 
         //
