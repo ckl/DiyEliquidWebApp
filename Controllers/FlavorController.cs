@@ -122,7 +122,7 @@ namespace DiyELiquidWeb.Controllers
                 {
                     var flavors = (from fl in db.Flavors
                                    where fl.FlavorBrandId == fb.Id
-                                   select new MyFlavorJson {Id = fl.Id, Name = fl.Name}).OrderBy(x => x.Name).ToList();
+                                   select new MyFlavorJson {Id = fl.Id, Name = fl.Name }).OrderBy(x => x.Name).ToList();
 
                     // TODO: Need to get whether or not the flavor is owned
 

@@ -1,7 +1,7 @@
-﻿<div>
+﻿<div class="view-body">
     <h3>Manage Flavors</h3>
     <div>
-        <table class="table-responsive table-recipes table-hover table-striped table-bordered">
+        <table class="table-responsive table-recipes table-hover table-striped table-bordered table-condensed">
             <thead>
                 <tr>
                     <th ng-repeat="brand in flavorsTransposed.headers">{{ brand }}</th>
@@ -10,8 +10,8 @@
             
             <tbody>
                 <tr ng-repeat="arr in flavorsTransposed.values">
-                    <td ng-repeat="item in arr">
-                        <input type="checkbox" value="{{item.Id}}" />  {{ item.Name }}
+                    <td ng-repeat="item in arr" ng-class="{ owned: item.IsOwned == true }" >
+                        <input type="checkbox" value="{{item.Id}}" ng-checked="item.IsOwned" />  {{ item.Name }}
                     </td>
                 </tr>
             </tbody>

@@ -1,4 +1,11 @@
-﻿
+﻿div.view-body {
+    margin-left: 30px;
+}
+
+td.owned {
+    background-color: lightgreen !important;
+}
+
 table.table-recipes > td {
     padding: 2em;
 }
