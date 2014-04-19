@@ -1,10 +1,20 @@
 ﻿app.value("transpose", function(items) {
 
+    //var results = { headers: [], values: [] };
+    //angular.forEach(items, function(value, key) {
+
+    //    results.headers.push(key);
+    //    angular.forEach(value, function(inner, index) {
+    //        results.values[index] = results.values[index] || [];
+    //        results.values[index].push(inner);
+    //    });
+    //});
+
     var results = { headers: [], values: [] };
     angular.forEach(items, function(value, key) {
 
-        results.headers.push(key);
-        angular.forEach(value, function(inner, index) {
+        results.headers.push({ FlavorBrandId: value.FlavorBrandId, FlavorBrandName: value.FlavorBrandName, ShortName: value.ShortName, Website: value.Website });
+        angular.forEach(value.Flavors, function(inner, index) {
             results.values[index] = results.values[index] || [];
             results.values[index].push(inner);
         });

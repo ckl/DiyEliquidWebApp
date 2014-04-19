@@ -34,6 +34,9 @@
                 error(data);
             });
         }
+        else {
+            success(allFlavorsDict);
+        }
     };
 
     this.GetAllFlavorsByBrand = function(flavorBrandId, success, error) {

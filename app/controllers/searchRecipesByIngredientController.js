@@ -5,13 +5,28 @@
     init();
     
     function init() {
-        recipeService.GetAllFlavorsByBrand(1, function (data) {
-            // success callback
+
+        recipeService.getAllFlavors(function(data) {
             $scope.flavors = data;
-        }, function (data) {
-            // error callback
+        }, function(data) {
             alert("Error: " + data);
         });
+
+        //recipeService.getAllFlavorBrands(function (data) {
+        //    // success callback
+        //    $scope.FlavorBrands = data;
+        //}, function (data) {
+        //    // error callback
+        //    alert("Error: " + data);
+        //});
+
+        //recipeService.GetAllFlavorsByBrand(1, function (data) {
+        //    // success callback
+        //    $scope.flavors = data;
+        //}, function (data) {
+        //    // error callback
+        //    alert("Error: " + data);
+        //});
     }
 
     $scope.selects = {
@@ -37,14 +52,25 @@
         modalService.showRecipe(recipe, "viewRecipe", "viewRecipeController");
     };
 
+    $scope.updateFlavors = function(op) {
+        angular.forEach($scope.flavors, function(item) {
+            if (item.FlavorBrandId == op.FlavorBrandId) {
+                var index = $scope.selects.m.indexOf(op);
+
+                if (index != -1)
+                    $scope.selects.m[index].flavors = item.Flavors;
+            }
+        });
+    };
+    
     // TODO: move the $http.post call into recipeService
     function searchRecipes() {
 
         var params = [];
         var len = $scope.selects.m.length;
         for (var i = 0; i < len; i++) {
-            if ($scope.selects.m[i].hasOwnProperty("flavors"))
-                params.push($scope.selects.m[i].flavors.Name);
+            if ($scope.selects.m[i].hasOwnProperty("FlavorId"))
+                params.push($scope.selects.m[i].FlavorId);
         }
 
         var data = JSON.stringify({ 'flavors': params, 'numMissingFlavors': $scope.numMissingFlavors });
@@ -60,5 +86,7 @@
 
 function Model(json) {
     json = json || {};
+    this.flavors = json.flavors || [];
+    this.selected_brand = json.selected_brand || null;
     this.selected_flavor = json.selected_flavor || null;
 }

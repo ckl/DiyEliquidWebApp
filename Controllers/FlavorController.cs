@@ -122,7 +122,8 @@ namespace DiyELiquidWeb.Controllers
         [HttpPost]
         public ActionResult GetAllFlavors()
         {
-            var results = new Dictionary<FlavorBrand, List<MyFlavorJson>>();
+            //var results = new Dictionary<FlavorBrand, List<MyFlavorJson>>();
+            var results = new List<FlavorsByBrandJson>();
 
             try
             {
@@ -148,7 +149,15 @@ namespace DiyELiquidWeb.Controllers
                             f.IsOwned = true;
                     }
 
-                    results.Add(new FlavorBrand {Id = fb.Id, Name = fb.Name, Website = fb.Website}, flavors);
+                    //results.Add(new FlavorBrand {Id = fb.Id, Name = fb.Name, Website = fb.Website}, flavors);
+                    results.Add(new FlavorsByBrandJson
+                        {
+                            FlavorBrandId = fb.Id,
+                            FlavorBrandName = fb.Name,
+                            ShortName = fb.ShortName,
+                            Website = fb.Website,
+                            Flavors = flavors
+                        });
                 }
             }
             catch (Exception ex)
@@ -158,7 +167,7 @@ namespace DiyELiquidWeb.Controllers
             }
 
 
-            return Json(results.ToDictionary(k => k.Key.Name, v => v.Value));
+            return Json(results);
         }
 
         //

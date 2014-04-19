@@ -103,4 +103,13 @@ namespace DiyELiquidWeb.Models
         public string Name { get; set; }
         public bool IsOwned { get; set; }
     }
+
+    public class FlavorsByBrandJson
+    {
+        public int FlavorBrandId { get; set; }
+        public string FlavorBrandName { get; set; }
+        public string ShortName { get; set; }
+        public string Website { get; set; }
+        public List<MyFlavorJson> Flavors { get; set; } 
+    }
 }
