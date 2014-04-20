@@ -13,7 +13,7 @@
     <tbody>
         <tr ng-repeat="arr in flavorsTransposed.values">
             <td ng-repeat="item in arr" ng-class="{ owned: item.IsInWishlist == true }" >
-                <input type="checkbox" value="{{item.Id}}" ng-checked="item.IsInWishlist" ng-click="toggleCheckbox(item)" />  {{ item.Name }}
+                <input type="checkbox" value="{{item.Id}}" ng-checked="item.IsInWishlist" ng-click="toggleCheckbox(item)" ng-if="item.Name != undefined" />  {{ item.Name }}
             </td>
         </tr>
     </tbody>

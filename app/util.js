@@ -10,6 +10,22 @@
     //    });
     //});
 
+    // pad each items.Flavor array because this transpose doesn't work for jagged arrays
+    var longest = 0;
+    angular.forEach(items, function(value, key) {
+        var size = value.Flavors.length;
+        if (size > longest)
+            longest = size;
+    });
+    
+    // pad each items.Flavor array with empty objects to the longest
+    angular.forEach(items, function(value, key) {
+        var len = value.Flavors.length;
+        for (var i = len; i < longest; i++) {
+            value.Flavors.push({});
+        }
+    });
+
     var results = { headers: [], values: [] };
     angular.forEach(items, function(value, key) {
 
