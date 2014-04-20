@@ -8,6 +8,8 @@
     var usersFlavors = [];
     var currentFlavorBrand = 1;
 
+    var usersFlavorsDirty = true;
+
     this.getAllRecipes = function(success, error) {
         if (recipeList.length == 0) {
             $http.post("/Flavor/SearchRecipe/").success(function(data, status, headers, config) {
@@ -56,9 +58,10 @@
     };
 
     this.getAllFlavorsForUser = function(success, error) {
-        if (usersFlavors.length == 0) {
+        if (usersFlavors.length == 0 || usersFlavorsDirty) {
             $http.post("/Flavor/GetFlavorsForUser").success(function (data, status, headers, config) {
                 usersFlavors = data;
+                usersFlavorsDirty = false;
                 success(data);
             }).error(function(data, status) {
                 error(data);
@@ -71,6 +74,7 @@
 
     this.updateFlavors = function(addList, remList, success, error) {
         $http.post("/Flavor/UpdateUserFlavor", { addList: addList, remList: remList }).success(function(data, status, headers, config) {
+            usersFlavorsDirty = true;
             success(data);
         }).error(function (data, status) {
             error(data);
