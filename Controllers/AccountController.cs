@@ -136,6 +136,12 @@ namespace DiyELiquidWeb.Controllers
         }
 
         [HttpPost]
+        public ActionResult IsLoggedIn()
+        {
+            return Json(WebSecurity.CurrentUserId != -1);
+        }
+
+        [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult CreateRole(string roleName)
         {

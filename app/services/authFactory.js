@@ -6,12 +6,34 @@
         admin: 'admin'
     };
 
+    var isSessionActive;
     var currentUser = $cookieStore.get("user") || { username: "", roles: [userRoles.anonymous] };
+
+    function init() {
+        checkIfLoggedIn();
+    }
 
     function changeUser(user, roles) {
         currentUser = { username: user.username, roles: roles };
         $cookieStore.put("user", currentUser);
     }
+
+    function checkIfLoggedIn() {
+        $http.post("/Account/IsLoggedIn").success(function(result, status, headers, config) {
+            if (result == "false") {
+                isSessionActive = false;
+                changeUser({ username: '' }, [userRoles.anonymous]);
+            } 
+            else {
+                isSessionActive = true;
+            }
+        }).error(function (result, status) {
+            isSessionActive = false;
+            changeUser({ username: '' }, [userRoles.anonymous]);
+        });
+    }
+
+    init();
 
     return {
         register: function(user, success, error) {
@@ -42,6 +64,10 @@
             return retval;
         },
         
+        isSessionValid: function() {
+            return isSessionActive;
+        },
+
         isAdmin: function() {
             var retval = false;
             angular.forEach(currentUser.roles, function(role) {

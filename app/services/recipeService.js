@@ -1,4 +1,4 @@
-﻿app.service("recipeService", function($http) {
+﻿app.service("recipeService", function($http, Auth) {
 
     var flavors = [];
     var recipeList = [];
@@ -58,7 +58,7 @@
     };
 
     this.getAllFlavorsForUser = function(success, error) {
-        if (usersFlavors.length == 0 || usersFlavorsDirty) {
+        if (usersFlavors.length == 0 || usersFlavorsDirty || ! Auth.isSessionValid()) {
             $http.post("/Flavor/GetFlavorsForUser").success(function (data, status, headers, config) {
                 usersFlavors = data;
                 usersFlavorsDirty = false;
