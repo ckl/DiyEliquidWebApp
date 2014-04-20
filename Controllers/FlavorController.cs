@@ -124,10 +124,22 @@ namespace DiyELiquidWeb.Controllers
         {
             //var results = new Dictionary<FlavorBrand, List<MyFlavorJson>>();
             var results = new List<FlavorsByBrandJson>();
+            var owned = new List<int>();
 
             try
             {
                 // TODO: probably a better way to do this in linq
+                // First get all owned flavors
+                var userId = MembershipHelper.GetUserId();
+
+                if (userId != null)
+                {
+                    owned = (from uf in db.Users_Flavors
+                                 where uf.UserId == userId
+                                 select uf.FlavorId).ToList<int>();
+                }
+
+
                 var flavorBrands = (from fb in db.FlavorBrands
                                     select fb).ToList();
 
@@ -137,16 +149,13 @@ namespace DiyELiquidWeb.Controllers
                                    where fl.FlavorBrandId == fb.Id
                                    select new MyFlavorJson {Id = fl.Id, Name = fl.Name }).OrderBy(x => x.Name).ToList();
 
-                    // Get all owned flavors
-                    var userId = MembershipHelper.GetUserId();
-                    var owned = (from uf in db.Users_Flavors
-                                 where uf.UserId == userId
-                                 select uf.FlavorId).ToList<int>();
-
-                    foreach (var f in flavors)
-                    {
-                        if (owned.Contains(f.Id))
-                            f.IsOwned = true;
+                    // Compare with owned flavors
+                    if (userId != null) {
+                        foreach (var f in flavors)
+                        {
+                            if (owned.Contains(f.Id))
+                                f.IsOwned = true;
+                        }
                     }
 
                     //results.Add(new FlavorBrand {Id = fb.Id, Name = fb.Name, Website = fb.Website}, flavors);
@@ -168,6 +177,57 @@ namespace DiyELiquidWeb.Controllers
 
 
             return Json(results);
+        }
+
+        //
+        // POST: /GetFlavorsForUser
+        [Authorize(Roles = "User")]
+        public ActionResult GetFlavorsForUser()
+        {
+            // TODO: move this code into a helper
+            // First get their UserId
+            var userId = MembershipHelper.GetUserId();
+
+            if (userId == null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json("Error: You must be logged in to perform this action");
+            }
+
+
+            var results = new List<FlavorsByBrandJson>();
+
+            var owned = (from uf in db.Users_Flavors
+                         where uf.UserId == userId
+                         select uf).ToList();
+
+            var dict = new Dictionary<int, List<MyFlavorJson>>();
+            foreach (var o in owned)
+            {
+                var key = o.Flavor.FlavorBrandId;
+
+                if (! dict.ContainsKey(key))
+                    dict.Add(key, new List<MyFlavorJson>());
+
+                dict[key].Add(new MyFlavorJson
+                    {
+                        Id = o.FlavorId,
+                        Name = o.Flavor.Name,
+                        IsOwned = true
+                    });
+            }
+
+            foreach (var item in dict)
+            {
+                results.Add(new FlavorsByBrandJson
+                    {
+                        FlavorBrandId = item.Key,
+                        Flavors = item.Value
+                    });
+            }
+
+            return Json(results);
+
         }
 
         //

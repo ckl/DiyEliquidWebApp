@@ -5,6 +5,7 @@
     var flavorBrands = [];
     var recipeFlavors = {};
     var allFlavorsDict = {};
+    var usersFlavors = [];
     var currentFlavorBrand = 1;
 
     this.getAllRecipes = function(success, error) {
@@ -51,6 +52,20 @@
         }
         else {
             success(flavors);
+        }
+    };
+
+    this.getAllFlavorsForUser = function(success, error) {
+        if (usersFlavors.length == 0) {
+            $http.post("/Flavor/GetFlavorsForUser").success(function (data, status, headers, config) {
+                usersFlavors = data;
+                success(data);
+            }).error(function(data, status) {
+                error(data);
+            });
+        }
+        else {
+            success(usersFlavors);
         }
     };
 

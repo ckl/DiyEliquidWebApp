@@ -1,37 +1,48 @@
-﻿app.controller("searchRecipesByIngredientController", function ($scope, $modal, $http, modalService, recipeService) {
+﻿app.controller("searchRecipesByIngredientController", function ($scope, $modal, $http, Auth, modalService, recipeService) {
     $scope.flavors = [];
     $scope.numMissingFlavors = 1;
-    
-    init();
-    
-    function init() {
-
-        recipeService.getAllFlavors(function(data) {
-            $scope.flavors = data;
-        }, function(data) {
-            alert("Error: " + data);
-        });
-
-        //recipeService.getAllFlavorBrands(function (data) {
-        //    // success callback
-        //    $scope.FlavorBrands = data;
-        //}, function (data) {
-        //    // error callback
-        //    alert("Error: " + data);
-        //});
-
-        //recipeService.GetAllFlavorsByBrand(1, function (data) {
-        //    // success callback
-        //    $scope.flavors = data;
-        //}, function (data) {
-        //    // error callback
-        //    alert("Error: " + data);
-        //});
-    }
 
     $scope.selects = {
         m: [new Model()]
     };
+
+    var usersFlavors = [];
+
+    
+
+    function init() {
+
+        recipeService.getAllFlavors(function(data) {
+            $scope.flavors = data;
+
+        }, function(data) {
+            alert("Error: " + data);
+        });
+
+        if (Auth.isLoggedIn()) {
+            recipeService.getAllFlavorsForUser(function(data) {
+
+                usersFlavors = data;
+                $scope.selects.m = [];
+
+                angular.forEach(usersFlavors, function(flavorBrand) {
+                    angular.forEach(flavorBrand.Flavors, function(flavor) {
+                        var op = {
+                            FlavorBrandId: flavorBrand.FlavorBrandId,
+                            FlavorId: flavor.Id
+                        };
+
+                        $scope.selects.m.push(op);
+
+                        $scope.updateFlavors(op);
+                    });
+                });
+
+            }, function(data) {
+                alert("Error: " + data);
+            });
+        }
+    }
 
     $scope.addSelect = function() {
         $scope.selects.m.push(new Model());
@@ -82,6 +93,8 @@
                 $scope.recipes = results;
         });
     }
+
+    init();
 });
 
 function Model(json) {
