@@ -158,6 +158,8 @@
     <Content Include="app\views\add-recipe.html" />
     <Content Include="app\views\edit-recipe.html" />
     <Content Include="app\views\login.html" />
+    <Content Include="app\views\manage-flavors-owned.html" />
+    <Content Include="app\views\manage-flavors-wishlist.html" />
     <Content Include="app\views\manage-flavors.html" />
     <Content Include="app\views\recipes.html" />
     <Content Include="app\views\register.html" />

@@ -6,6 +6,14 @@ td.owned {
     background-color: lightgreen !important;
 }
 
+div.partial-page {
+    margin-top: 15px;
+}
+
+table.table-recipes {
+    margin-top: 15px;
+}
+
 table.table-recipes > td {
     padding: 2em;
 }

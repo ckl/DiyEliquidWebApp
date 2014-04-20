@@ -1,30 +1,15 @@
 ﻿<div class="view-body">
     <h3>Manage Flavors</h3>
-    <div>
-        
-        <div class="form-horizontal" style="margin-top: 20px;">
-            <button class="btn btn-primary" data-ng-click="updateFlavors()" ng-disabled="buttonDisabled">Update Flavors</button>
-        </div>
 
-        <table class="table-responsive table-recipes table-hover table-striped table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th ng-repeat="brand in flavorsTransposed.headers">{{ brand.FlavorBrandName }}</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                <tr ng-repeat="arr in flavorsTransposed.values">
-                    <td ng-repeat="item in arr" ng-class="{ owned: item.IsOwned == true }" >
-                        <input type="checkbox" value="{{item.Id}}" ng-checked="item.IsOwned" ng-click="toggleCheckbox(item)" />  {{ item.Name }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="form-horizontal" style="margin-top: 20px;">
-            <button class="btn btn-primary" data-ng-click="updateFlavors()" ng-disabled="buttonDisabled">Update Flavors</button>
-        </div>
-
-    </div>
+    <tabset>
+        <tab heading="Owned Flavors">
+            <div ng-include src="'/app/views/manage-flavors-owned.html'"></div>
+        </tab>
+        <tab heading="Wishlist">
+            <div ng-include src="'/app/views/manage-flavors-wishlist.html'"></div>
+        </tab>
+        <tab heading="Favorites">
+            <div></div>
+        </tab>
+    </tabset>
 </div>
