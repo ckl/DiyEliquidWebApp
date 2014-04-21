@@ -115,13 +115,15 @@
         }
     };
 
-    this.updateRecipe = function(recipe, success, error) {
-        $http.post("/Flavor/UpdateRecipe", recipe).success(function(data, status, headers, config) {
+    this.updateRecipe = function (recipeObj, flavorList, success, error) {
+        $http.post("/Flavor/UpdateRecipe", { recipe: recipeObj, flavors: flavorList }).success(function (data, status, headers, config) {
+            usersFlavorsDirty = true;
             success(data);
-        }).error(function(data, status, headers, config) {
+        }).error(function (data, status) {
             error(data);
         });
     };
+
 
     this.deleteRecipe = function (recipeId, success, error) {
         $http.post("/Flavor/DeleteRecipe", { recipeId: recipeId }).success(function(data, status, headers, config) {

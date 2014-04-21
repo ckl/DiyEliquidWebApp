@@ -368,52 +368,53 @@ namespace DiyELiquidWeb.Controllers
             return Json(null);
         }
 
-        // 
-        // POST: /UpdateRecipe/
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult UpdateRecipe(Recipe recipe, List<Ingredient> ingredients, List<int> remove)
+        [Authorize(Roles = "User")]
+        public ActionResult UpdateRecipe(Recipe recipe, List<Ingredient> flavors)
         {
-            if (ingredients == null)
-                return Json(null);
+            // First get their UserId
+            var userId = MembershipHelper.GetUserId();
 
-            // Update recipe name/desc
-            db.Recipes.Update(r => r.Id == recipe.Id,
-                              r => new Recipe {Description = recipe.Description, Name = recipe.Name});
-
-            // Remove flavors
-            if (remove != null && remove.Count > 0)
+            if (userId == null)
             {
-                int x = db.Recipe_Flavor.Delete(rf => rf.RecipeId == recipe.Id && remove.Contains(rf.FlavorId));
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json("Error: You must be logged in to perform this action");
             }
 
-            // Update existing flavors
-            foreach (var ing in ingredients)
+            try
             {
-                var entry = db.Recipe_Flavor.FirstOrDefault(rf => rf.RecipeId == recipe.Id && rf.FlavorId == ing.FlavorId);
+                // Update the name and description
+                db.Recipes.Update(r => r.Id == recipe.Id,
+                                  r => new Recipe {Description = recipe.Description, Name = recipe.Name});
 
-                if (entry == null)
+                // Remove existing flavors
+                int x = db.Recipe_Flavor.Delete(rf => rf.RecipeId == recipe.Id);
+
+                // Add in new flavors
+                foreach (var fl in flavors)
                 {
                     // TODO: add Notes
                     var recipeFlavor = new Recipe_Flavor
                         {
-                            AmountPercent = ing.Amount,
-                            FlavorId = ing.FlavorId,
+                            AmountPercent = fl.Amount,
+                            FlavorId = fl.FlavorId,
                             RecipeId = recipe.Id
                         };
 
                     db.Recipe_Flavor.Add(recipeFlavor);
                 }
-                else
-                {
-                    entry.AmountPercent = ing.Amount;
-                }
-            }
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                return Json("Error: " + ex.Message);
+            }
 
             return Json(null);
         }
+
 
         //
         // POST: /DeleteRecipe/

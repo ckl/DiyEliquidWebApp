@@ -5,8 +5,6 @@
     $scope.flavors = [];
     $scope.buttonDisabled = false;
 
-    var flavorsToRemove = [];
-
     init();
     
     function init() {
@@ -78,17 +76,14 @@
             return;
         }
 
-        recipeService.updateRecipe({
-           Recipe: $scope.recipe, 
-           Ingredients: $scope.ingredients.m,
-           Remove: flavorsToRemove
-        }, function(data) {
-            // success callback
-            $scope.buttonDisabled = false;
-        }, function(data) {
-            // error callback
-            $scope.buttonDisabled = false;
-        });
+        recipeService.updateRecipe($scope.recipe, $scope.ingredients.m,
+            function (data) {
+                // success callback
+                $scope.buttonDisabled = false;
+            }, function(data) {
+                // error callback
+                $scope.buttonDisabled = false;
+            });
     };
 
     $scope.deleteRecipe = function () {
@@ -122,7 +117,6 @@
         var index = $scope.ingredients.m.indexOf(select);
         if (index >= 0) {
             $scope.ingredients.m.splice(index, 1);
-            flavorsToRemove.push(select.id);
         }
     };
 });
