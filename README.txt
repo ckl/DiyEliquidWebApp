@@ -5,3 +5,4 @@ Requires:
 
 TODO:
 	Bugs:
+		- flavors don't refresh correctly
