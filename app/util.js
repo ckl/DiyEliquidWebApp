@@ -43,6 +43,8 @@ app.value("arrayContains", function(array, value) {
     return (array.indexOf(value) != -1);
 });
 
+// TODO: add flavor/flavorbrand dropdown model here
+
 // TODO: convert this to app.value()
 function ShowRecipeModalDialog(recipe) {
 

@@ -25,6 +25,7 @@
                 usersFlavors = data;
                 $scope.selects.m = [];
 
+                // build option sets, push into model, and update the flavor dropdown based on the flavorbrand
                 angular.forEach(usersFlavors, function(flavorBrand) {
                     angular.forEach(flavorBrand.Flavors, function(flavor) {
                         var op = {
@@ -34,8 +35,11 @@
 
                         $scope.selects.m.push(op);
 
+                        // update flavor dropdown based on flavorbrand dropdown
                         $scope.updateFlavors(op);
                     });
+
+                    
                 });
 
             }, function(data) {
@@ -63,6 +67,7 @@
         modalService.showRecipe(recipe, "viewRecipe", "viewRecipeController");
     };
 
+    // Sets the flavors dropdown to the correct brand of flavors
     $scope.updateFlavors = function(op) {
         angular.forEach($scope.flavors, function(item) {
             if (item.FlavorBrandId == op.FlavorBrandId) {

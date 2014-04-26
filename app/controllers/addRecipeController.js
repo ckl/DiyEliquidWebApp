@@ -98,6 +98,7 @@
 
 function Model(json) {
     json = json || {};
+    this.selected_brand = json.selected_brand || null;
     this.selected_flavor = json.selected_flavor || null;
     this.amount = json.amount || null;
 }
