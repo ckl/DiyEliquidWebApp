@@ -57,7 +57,7 @@
 		        <div ng-repeat="op in selects.m">
 		            <div>
 		                <select ng-model="op.FlavorBrandId" name="select-{{$index}}" ng-options="o.FlavorBrandId as o.FlavorBrandName for o in flavors | orderBy: 'FlavorBrandName'" 
-                            ng-change="updateFlavors(op)"></select>
+                            ng-change="updateFlavorDropdown(op)"></select>
                         <select ng-model="op.FlavorId" ng-options="o.Id as o.Name for o in op.flavors"></select>
 		                <a ng-click="removeSelect(op)">Remove</a>
 		            </div>

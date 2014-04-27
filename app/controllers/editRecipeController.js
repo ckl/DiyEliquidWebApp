@@ -1,4 +1,4 @@
-﻿app.controller("editRecipeController", function($scope, $http, $dialogs, $routeParams, recipeService) {
+﻿app.controller("editRecipeController", function ($scope, $http, $dialogs, $routeParams, recipeService, flavorDropdownModel) {
 
     $scope.recipeId = $routeParams.recipeId;
     $scope.recipe = { id: '', name: '', description: '' };
@@ -106,7 +106,7 @@
     };
 
     $scope.ingredients = {
-        m: [new Model()]
+        m: [new flavorDropdownModel()]
     };
 
     $scope.add = function () {

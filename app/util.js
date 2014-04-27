@@ -44,6 +44,12 @@ app.value("arrayContains", function(array, value) {
 });
 
 // TODO: add flavor/flavorbrand dropdown model here
+app.value("flavorDropdownModel", function(json) {
+    json = json || {};
+    this.flavors = json.flavors || [];
+    this.selected_brand = json.selected_brand || [];
+    this.selected_flavor = json.selected_flavor || [];
+});
 
 // TODO: convert this to app.value()
 function ShowRecipeModalDialog(recipe) {

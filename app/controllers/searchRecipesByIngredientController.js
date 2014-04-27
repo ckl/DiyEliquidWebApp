@@ -1,9 +1,9 @@
-﻿app.controller("searchRecipesByIngredientController", function ($scope, $modal, $http, Auth, modalService, recipeService) {
+﻿app.controller("searchRecipesByIngredientController", function ($scope, $modal, $http, Auth, modalService, recipeService, flavorDropdownFactory, flavorDropdownModel) {
     $scope.flavors = [];
     $scope.numMissingFlavors = 1;
 
     $scope.selects = {
-        m: [new Model()]
+        m: [new flavorDropdownModel()]
     };
 
     var usersFlavors = [];
@@ -26,20 +26,10 @@
                 $scope.selects.m = [];
 
                 // build option sets, push into model, and update the flavor dropdown based on the flavorbrand
-                angular.forEach(usersFlavors, function(flavorBrand) {
-                    angular.forEach(flavorBrand.Flavors, function(flavor) {
-                        var op = {
-                            FlavorBrandId: flavorBrand.FlavorBrandId,
-                            FlavorId: flavor.Id
-                        };
+                $scope.selects = flavorDropdownFactory.getFlavorDropdown(data);
 
-                        $scope.selects.m.push(op);
-
-                        // update flavor dropdown based on flavorbrand dropdown
-                        $scope.updateFlavors(op);
-                    });
-
-                    
+                angular.forEach($scope.selects.m, function(op) {
+                    $scope.updateFlavorDropdown(op);
                 });
 
             }, function(data) {
@@ -49,7 +39,7 @@
     }
 
     $scope.addSelect = function() {
-        $scope.selects.m.push(new Model());
+        $scope.selects.m.push(new flavorDropdownModel());
     };
 
     $scope.removeSelect = function(select) {
@@ -68,7 +58,7 @@
     };
 
     // Sets the flavors dropdown to the correct brand of flavors
-    $scope.updateFlavors = function(op) {
+    $scope.updateFlavorDropdown = function (op) {
         angular.forEach($scope.flavors, function(item) {
             if (item.FlavorBrandId == op.FlavorBrandId) {
                 var index = $scope.selects.m.indexOf(op);
@@ -101,10 +91,3 @@
 
     init();
 });
-
-function Model(json) {
-    json = json || {};
-    this.flavors = json.flavors || [];
-    this.selected_brand = json.selected_brand || null;
-    this.selected_flavor = json.selected_flavor || null;
-}

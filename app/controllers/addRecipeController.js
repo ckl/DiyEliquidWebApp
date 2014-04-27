@@ -1,4 +1,4 @@
-﻿app.controller("addRecipeController", function ($scope, $modal, $http, recipeService) {
+﻿app.controller("addRecipeController", function ($scope, $modal, $http, recipeService, flavorDropdownModel) {
     $scope.flavors = [];
 
     init();
@@ -15,11 +15,11 @@
     }
 
     $scope.ingredients = {
-        m: [new Model()]
+        m: [new flavorDropdownModel()]
     };
 
     $scope.add = function () {
-        $scope.ingredients.m.push(new Model());
+        $scope.ingredients.m.push(new flavorDropdownModel());
     };
 
     $scope.remove = function (select) {
@@ -95,10 +95,3 @@
             });
     };
 });
-
-function Model(json) {
-    json = json || {};
-    this.selected_brand = json.selected_brand || null;
-    this.selected_flavor = json.selected_flavor || null;
-    this.amount = json.amount || null;
-}
