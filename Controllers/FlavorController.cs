@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using DiyELiquidWeb.Helpers;
 using DiyELiquidWeb.Models;
 using EntityFramework.Extensions;
 
@@ -106,16 +107,7 @@ namespace DiyELiquidWeb.Controllers
             return Json(matchingRecipes);
         }
 
-        // TODO: move to helper
-        public class MembershipHelper
-        {
-            public static int? GetUserId()
-            {
-                if (Membership.GetUser() != null)
-                    return Membership.GetUser().ProviderUserKey as int?;
-                return null;
-            }
-        }
+        
 
         //
         // POST: /GetAllFlavors
