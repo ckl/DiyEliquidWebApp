@@ -279,7 +279,7 @@ namespace DiyELiquidWeb.Controllers
         // POST: /AddFlavor/
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddFlavor(string flavorName, string notes, int flavorBrandId=1)
+        public ActionResult AddFlavor(int flavorBrandId, string flavorName, string notes)
         {
             // First see if the flavor name already exists
             try
@@ -309,7 +309,7 @@ namespace DiyELiquidWeb.Controllers
                     {
                         Name = flavorName,
                         Notes = notes,
-                        FlavorBrandId = 1   // TODO: add this to Ingredient later. Assuming TFA for now because that's all I have and care about
+                        FlavorBrandId = flavorBrandId
                     };
 
                 f = db.Flavors.Add(f);
@@ -337,8 +337,16 @@ namespace DiyELiquidWeb.Controllers
                         Description = description
                     };
 
-                recipe = db.Recipes.Add(recipe);
-                db.SaveChanges();
+                try
+                {
+                    recipe = db.Recipes.Add(recipe);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return Json(ex.Message);
+                }
 
                 // Associate each ingredient to the recipe by adding a row to the Recipe_Flavor (intersect) table
                 foreach (var ing in ingredients)
@@ -348,10 +356,20 @@ namespace DiyELiquidWeb.Controllers
                             RecipeId = recipe.Id,
                             FlavorId = ing.FlavorId,
                             AmountPercent = ing.Amount, // TODO: add notes to Ingredit and addRecipeController
+                            
                         };
 
                     db.Recipe_Flavor.Add(recipeFlavor);
+                }
+
+                try
+                {
                     db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return Json(ex.Message);
                 }
             }
 

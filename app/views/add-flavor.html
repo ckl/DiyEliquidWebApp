@@ -6,6 +6,12 @@
 <div class="modal-body">
     <div class="form-group form-horizontal">
         <span>
+            Flavor Brand:
+        <br />
+        <select ng-model="$parent.selectedBrand" ng-options="o.FlavorBrandId as o.FlavorBrandName for o in flavors | orderBy: 'FlavorBrandName'"></select>
+        </span><br />
+
+        <span>
             Flavor Name: <input type="text" ng-model="$parent.flavorName" class="form-control" placeholder="Flavor Name" style="width:200px;" />
         </span>
         

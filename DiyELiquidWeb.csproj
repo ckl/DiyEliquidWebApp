@@ -152,7 +152,7 @@
     <Content Include="app\controllers\viewRecipeController.js" />
     <Content Include="app\filters\recipeNameFilter.js" />
     <Content Include="app\services\authFactory.js" />
-    <Content Include="app\services\flavorDropdownFactory.js" />
+    <Content Include="app\services\flavorDropdownService.js" />
     <Content Include="app\services\modalService.js" />
     <Content Include="app\services\recipeService.js" />
     <Content Include="app\util.js" />

@@ -1,4 +1,4 @@
-﻿app.factory("flavorDropdownFactory", function($http, $cookieStore, flavorDropdownModel) {
+﻿app.factory("flavorDropdownService", function($http, $cookieStore, flavorDropdownModel) {
 
     var selects = {
         m: [new flavorDropdownModel()]

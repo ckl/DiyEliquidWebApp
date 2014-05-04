@@ -1,4 +1,4 @@
-﻿app.controller("searchRecipesByIngredientController", function ($scope, $modal, $http, Auth, modalService, recipeService, flavorDropdownFactory, flavorDropdownModel) {
+﻿app.controller("searchRecipesByIngredientController", function ($scope, $modal, $http, Auth, modalService, recipeService, flavorDropdownService, flavorDropdownModel) {
     $scope.flavors = [];
     $scope.numMissingFlavors = 1;
 
@@ -26,7 +26,7 @@
                 $scope.selects.m = [];
 
                 // build option sets, push into model, and update the flavor dropdown based on the flavorbrand
-                $scope.selects = flavorDropdownFactory.getFlavorDropdown(data);
+                $scope.selects = flavorDropdownService.getFlavorDropdown(data);
 
                 angular.forEach($scope.selects.m, function(op) {
                     $scope.updateFlavorDropdown(op);
