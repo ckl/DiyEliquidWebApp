@@ -9,4 +9,3 @@ TODO:
 		- move the flavor/flavorbrand dropdown model into it's own file with its own methods (factory or service?)
 
 	Bugs:
-		- flavors don't refresh correctly
